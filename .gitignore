@@ -1,0 +1,7 @@
+node_modules/
+_temp_venera/
+_temp_pica/
+*.picadata
+*.venera
+webdav_credentials.json
+_test/

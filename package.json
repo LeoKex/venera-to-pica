@@ -1,0 +1,9 @@
+{
+  "name": "venera-to-pica-converter",
+  "version": "1.0.0",
+  "description": "Convert Venera data to PicaComic format",
+  "main": "convert_v4.js",
+  "dependencies": {
+    "better-sqlite3": "^11.10.0"
+  }
+}
