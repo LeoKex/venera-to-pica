@@ -1,26 +1,24 @@
 # Venera to PicaComic Converter
 
-Convert Venera manga app user data to PicaComic v4.2.11 importable format.
+将 Venera 漫画应用的用户数据转换为 PicaComic v4.2.11 可导入的格式。
+
+> **注意**: 这是一个早期实验性工具，转换效果有限，部分漫画可能无法正常打开。欢迎提交 Issue 和 PR 来改进。
 
 [English](#features) | [中文](#功能)
 
-## Features
+## 功能
 
-- Complete favorites conversion (preserves original folder names)
-- History records migration
-- Comic source configuration transfer
-- Login cookies migration
-- WebDAV configuration detection
+- 收藏夹数据转换（保持原始文件夹名称）
+- 历史记录转换
+- 漫画源配置迁移
+- 登录 Cookies 迁移
+- WebDAV 配置检测
 
-## Favorites Structure
+## 已知问题
 
-| Venera | PicaComic |
-|--------|-----------|
-| 感兴趣 (Interested) | 感兴趣 |
-| 最爱 (Favorites) | 最爱 |
-| 追更 (Following) | 追更 |
-| 看过 (Read) | 看过 |
-
+- **部分漫画打开报 404 错误**: 由于 Venera 和 PicaComic 的漫画源类型映射不完全匹配，部分漫画在导入后可能无法正常打开
+- **漫画源类型覆盖不全**: 目前仅支持 picacg、ehentai、jm、hitomi、nhentai 等主要源，其他源的类型可能转换不正确
+- **这是个人使用的粗糙工具**: 功能不完善，仅作为初步尝试
 
 ## Requirements
 
@@ -77,8 +75,9 @@ node convert_v4.js "C:\Users\You\Downloads\data.venera" "C:\Users\You\Desktop\us
 
 If comics show 404 error after import:
 
-1. **Account mismatch** - Make sure PicaComic uses the same account as Venera
-2. **Comic removed** - Some comics may have been removed from the platform
+1. **Comic source type mismatch** - The tool attempts to convert types, but may not be fully accurate
+2. **Account mismatch** - Make sure PicaComic uses the same account as Venera
+3. **Comic removed** - Some comics may have been removed from the platform
 
 ### WebDAV Sync Failed
 
@@ -97,6 +96,16 @@ Restart PicaComic app.
 - Node.js + better-sqlite3 for SQLite database processing
 - PowerShell for ZIP compression/extraction
 - Output format compatible with PicaComic v4.2.11
+
+## Comic Source Type Mapping
+
+| Venera Type | PicaComic Type | Source |
+|-------------|----------------|--------|
+| 553570794 | 0 | picacg |
+| 385625716 | 1 | ehentai |
+| 769844263 | 2 | jm |
+| 258019538 | 3 | hitomi |
+| 264196719 | 6 | nhentai |
 
 ## Project Structure
 
@@ -119,11 +128,17 @@ Issues and Pull Requests are welcome!
 
 ## 功能
 
-- 收藏夹数据完整转换（保持原始分类名称）
+- 收藏夹数据转换（保持原始分类名称）
 - 历史记录转换
 - 漫画源配置转换
 - 登录 Cookies 迁移
 - WebDAV 配置识别
+
+## 已知问题
+
+- **部分漫画打开报 404 错误**: 漫画源类型映射不完全匹配
+- **漫画源类型覆盖不全**: 仅支持主要源，其他源可能转换不正确
+- **这是个人使用的粗糙工具**: 功能不完善，仅作为初步尝试
 
 ## 系统要求
 
@@ -133,7 +148,7 @@ Issues and Pull Requests are welcome!
 ## 安装
 
 ```bash
-git clone https://github.com/yourusername/venera-to-pica.git
+git clone https://github.com/LeoKex/venera-to-pica.git
 cd venera-to-pica
 npm install
 ```
@@ -169,10 +184,11 @@ node convert_v4.js "path\to\data.venera" "path\to\output.picadata"
 
 ### 404 错误
 
-导入后点击漫画出现 404 错误，通常是因为：
+导入后点击漫画出现 404 错误，可能原因：
 
-1. **账号不匹配** - 确保 PicaComic 使用与 Venera 相同的账号登录
-2. **漫画已下架** - 部分漫画可能已被平台删除
+1. **漫画源类型不匹配** - 工具会尝试转换类型，但可能不完全准确
+2. **账号不匹配** - 确保 PicaComic 使用与 Venera 相同的账号登录
+3. **漫画已下架** - 部分漫画可能已被平台删除
 
 ### WebDAV 同步失败
 
@@ -185,3 +201,8 @@ node convert_v4.js "path\to\data.venera" "path\to\output.picadata"
 ## 许可证
 
 MIT License
+
+## 致谢
+
+- [Venera](https://github.com/venera-app/venera) - 原始数据格式参考
+- [PicaComic](https://github.com/ccbkv/PicaComic) - 目标数据格式参考
